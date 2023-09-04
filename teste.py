@@ -1,10 +1,22 @@
-salário = float (input("Digite o salário para cálculo do imposto: "))
-base = salário
-imposto = 0
-if base > 3000:
-    imposto = imposto + ((base - 1000) * 0.20) ## Já desconta os 1000 que sao isentos * 20%
-    base = 3000 
-if base > 1000:
-    imposto = imposto + ((base - 1000) * 0.20)
+valorDivida = float(input("Valor inicial da dívida: "))
+taxa = float(input("Digite os juros mensais em porcentagem: "))
+valorMensal = float(input("Digite o valor mensal que será pago: "))
 
-    print(f"Salário: R${salário:6.2f} Imposto a pagar: R${imposto: 6.2f}")
+meses = 0
+totalpago = 0
+juros = 0
+
+# Converta a taxa de juros de porcentagem para decimal
+taxa = taxa / 100.0
+
+if (valorDivida * taxa > valorMensal):
+    print("Os juros não podem ser superiores ao pagamento mensal")
+else:
+    while valorDivida > 0:
+        meses = meses + 1
+        juros_mes = valorDivida * taxa
+        valorDivida = valorDivida + juros_mes - valorMensal
+        totalpago = totalpago + valorMensal
+        juros = juros + juros_mes
+
+    print(f"Foi pago um total de R${totalpago:.2f} com juros de R${juros:.2f} em {meses} meses")
